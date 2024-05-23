@@ -12,38 +12,36 @@ import java.time.LocalDateTime;
 public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "task_id")
     private Long taskId;
 
     @ManyToOne
-    @JoinColumn(name = "projectId")
+    @JoinColumn(name = "project_id")
     private Project project;
 
-    @Column(nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column
+    @Column (name = "description", nullable = false, columnDefinition = "TEXT")
     private String description;
 
-    @Column
+    @Column (name = "deadline", nullable = false)
     private LocalDate deadline;
 
-    @Column(nullable = false)
+    @Column(name = "status", nullable = false)
     private String status;
 
     @ManyToOne
-    @JoinColumn(name = "assignedTo")
+    @JoinColumn(name = "assigned_to")
     private User assignedTo;
 
-    @Column(nullable = false)
-    private LocalDateTime creationDate;
+    @Column(name = "creation_date", nullable = false)
+    private LocalDate creationDate;
 
-    @Column
+    @Column (name = "last_update", nullable = false)
     private LocalDate startDate;
 
-    @Column
+    @Column (name = "end_date", nullable = false)
     private LocalDate endDate;
-
-    @Column
-    private Integer estimatedTime;
 }
 

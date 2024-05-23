@@ -14,17 +14,12 @@ public class UserTeam {
 
     @ManyToOne
     @MapsId("userId") // Mapeia para o campo userId da chave composta
+    @JoinColumn(name = "user_id")
     private User user;
 
     @ManyToOne
     @MapsId("teamId") // Mapeia para o campo teamId da chave composta
+    @JoinColumn(name = "team_id")
     private Team team;
 }
 
-// Classe para representar a chave primária composta
-@Embeddable
-@Data
-class UserTeamId implements Serializable {
-    private Long userId;
-    private Long teamId;
-}

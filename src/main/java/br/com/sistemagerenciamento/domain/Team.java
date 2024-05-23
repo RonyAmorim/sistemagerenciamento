@@ -9,12 +9,13 @@ import lombok.Data;
 public class Team {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "team_id")
     private Long teamId;
 
-    @Column(nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
     @ManyToOne // Muitos times podem pertencer a um projeto
-    @JoinColumn(name = "projectId")
+    @JoinColumn(name = "project_id")
     private Project project;
 }

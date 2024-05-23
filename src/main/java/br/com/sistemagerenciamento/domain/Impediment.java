@@ -9,16 +9,17 @@ import lombok.Data;
 public class Impediment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "impediment_id")
     private Long impedimentId;
 
     @ManyToOne
-    @JoinColumn(name = "TarefaID")
+    @JoinColumn(name = "task_id")
     private Task task;
 
-    @Column(nullable = false, columnDefinition = "TEXT")
+    @Column(name = "description", nullable = false, columnDefinition = "TEXT")
     private String description;
 
     @ManyToOne
-    @JoinColumn(name = "RelatadoPor")
+    @JoinColumn(name = "realted_to")
     private User reportedBy;
 }

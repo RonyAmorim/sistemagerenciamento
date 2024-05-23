@@ -3,7 +3,7 @@ package br.com.sistemagerenciamento.domain;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "User")
@@ -11,26 +11,27 @@ import java.time.LocalDateTime;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
     private Long userId;
 
-    @Column(nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(nullable = false, unique = true)
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Column(nullable = false)
+    @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(nullable = false)
+    @Column(name = "type", nullable = false)
     private String type;
 
-    @Column(nullable = false)
-    private LocalDateTime creationDate;
+    @Column(name= "creation_date" ,nullable = false, columnDefinition = "DATE")
+    private LocalDate creationDate;
 
     @PrePersist
     void prePersist() {
-        creationDate = LocalDateTime.now();
+        creationDate = LocalDate.now();
     }
 }
 

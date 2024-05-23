@@ -3,7 +3,7 @@ package br.com.sistemagerenciamento.domain;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "Project")
@@ -11,17 +11,18 @@ import java.time.LocalDateTime;
 public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "project_id")
     private Long projectId;
 
-    @Column(nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column
+    @Column(name = "description", nullable = false, columnDefinition = "TEXT")
     private String description;
 
-    @Column(nullable = false)
+    @Column(name = "status", nullable = false)
     private String status;
 
-    @Column(nullable = false)
-    private LocalDateTime creationDate;
+    @Column(name = "creation_date", nullable = false)
+    private LocalDate creationDate;
 }

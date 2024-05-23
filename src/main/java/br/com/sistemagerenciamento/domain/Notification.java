@@ -12,19 +12,20 @@ public class Notification {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "notification_id")
     private Long notificationId;
 
     @ManyToOne
-    @JoinColumn(name = "UserID")
+    @JoinColumn(name = "user_id")
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "TarefaID")
+    @JoinColumn(name = "task_id")
     private Task task;
 
-    @Column(nullable = false, columnDefinition = "TEXT")
+    @Column(name = "message", nullable = false, columnDefinition = "TEXT")
     private String message;
 
-    @Column(nullable = false)
+    @Column(name = "date_hour", nullable = false)
     private LocalDateTime dateHour;
 }
