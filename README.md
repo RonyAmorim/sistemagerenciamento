@@ -12,32 +12,29 @@ Este projeto é uma API RESTful desenvolvida com Spring Boot e MySQL para gerenc
 - **Controle de acesso baseado em roles (tipos de usuários)**
 
 ### Gerenciamento de Usuários
-- **Listagem de todos os usuários (sem senha):** `GET /usuarios`
-- **Busca de usuário por email:** `GET /usuarios/{email}`
-- **Atualização de dados do usuário (nome, email, tipo, senha):** `PUT /usuarios/{id}`
-- **Exclusão de usuário por email:** `DELETE /usuarios/{email}`
+- **Listagem de todos os usuários (sem senha):** `GET /users`
+- **Busca de usuário por email:** `GET /users/{email}`
+- **Atualização de dados do usuário (nome, email, tipo, senha):** `PUT /users/{id}`
+- **Exclusão de usuário por email:** `DELETE /users/{email}`
 
 ### Gerenciamento de Projetos
 - **CRUD de projetos**
-- **Listagem de projetos de um usuário:** `GET /usuarios/{usuarioId}/projetos`
+- **Listagem de projetos de um usuário:** `GET /users/{userId}/project`
 
 ### Gerenciamento de Tarefas
 - **CRUD de tarefas**
-- **Listagem de tarefas de um usuário:** `GET /usuarios/{usuarioId}/tarefas`
+- **Listagem de tarefas de um usuário:** `GET /userId/{userId}/task`
 - **Atribuição de tarefas a usuários**
 - **Gerenciamento do status da tarefa (pendente, em andamento, concluída, etc.)**
 
 ### Notificações
 - **CRUD de notificações**
-- **Listagem de notificações de um usuário:** `GET /usuarios/{usuarioId}/notificacoes`
+- **Listagem de notificações de um usuário:** `GET /userId/{userId}/notifications`
 
 ### Impedimentos
 - **CRUD de impedimentos**
-- **Listagem de impedimentos reportados por um usuário:** `GET /usuarios/{usuarioId}/impedimentos`
+- **Listagem de impedimentos reportados por um usuário:** `GET /userId/{usuarioId}/impediments`
 
-### Comentários
-- **CRUD de comentários em tarefas**
-- **Listagem de comentários de um usuário:** `GET /usuarios/{usuarioId}/comentarios`
 
 ## Tecnologias Utilizadas
 
@@ -49,13 +46,6 @@ Este projeto é uma API RESTful desenvolvida com Spring Boot e MySQL para gerenc
 - JWT (JSON Web Tokens)
 - Lombok
 
-### Testes
-- JUnit 5
-- Mockito
-- AssertJ
-- Spring Boot Test
-- H2 Database (para testes)
-
 ## Como Executar o Projeto
 
 ### Pré-requisitos
@@ -65,7 +55,7 @@ Este projeto é uma API RESTful desenvolvida com Spring Boot e MySQL para gerenc
 
 ### Configurar o Banco de Dados
 1. Crie um banco de dados MySQL com o nome que você definiu em `application.properties`.
-2. Crie as tabelas do banco de dados (você pode usar o script SQL fornecido anteriormente).
+2. Crie as tabelas do banco de dados (você pode usar o script SQL fornecido em `resources/data.sql`).
 
 ### Clonar o Repositório
 Clone este repositório para sua máquina local:
