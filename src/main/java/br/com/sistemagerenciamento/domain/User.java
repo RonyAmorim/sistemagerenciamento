@@ -22,9 +22,8 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    @Enumerated(EnumType.STRING) // Usar EnumType.STRING para armazenar o valor como string no banco
     @Column(nullable = false)
-    private UserType type; // Use o enum UserType
+    private String type;
 
     @Column(nullable = false)
     private LocalDateTime creationDate;

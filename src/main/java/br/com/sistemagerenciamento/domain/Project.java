@@ -19,17 +19,9 @@ public class Project {
     @Column
     private String description;
 
-    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private ProjectStatus status;
+    private String status;
 
     @Column(nullable = false)
     private LocalDateTime creationDate;
-}
-
-// Enum para o status do projeto
-enum ProjectStatus {
-    EM_ANDAMENTO,
-    CONCLUIDO,
-    CANCELADO
 }

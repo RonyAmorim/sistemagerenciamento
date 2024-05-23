@@ -1,7 +1,6 @@
 package br.com.sistemagerenciamento.controller;
 
 import br.com.sistemagerenciamento.domain.User;
-import br.com.sistemagerenciamento.domain.UserType;
 import br.com.sistemagerenciamento.dto.LoginRequestDTO;
 import br.com.sistemagerenciamento.dto.RegisterRequestDTO;
 import br.com.sistemagerenciamento.dto.ResponseDTO;
@@ -49,7 +48,7 @@ public class AuthController {
         novoUsuario.setName(body.name());
         novoUsuario.setEmail(body.email());
         novoUsuario.setPassword(passwordEncoder.encode(body.password()));
-        novoUsuario.setType(UserType.valueOf(body.type()));
+        novoUsuario.setType(body.type());
         novoUsuario.setCreationDate(LocalDateTime.now());
 
         userRepository.save(novoUsuario);

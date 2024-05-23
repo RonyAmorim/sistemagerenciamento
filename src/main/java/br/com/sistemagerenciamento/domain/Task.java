@@ -27,9 +27,8 @@ public class Task {
     @Column
     private LocalDate deadline;
 
-    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private TaskStatus status;
+    private String status;
 
     @ManyToOne
     @JoinColumn(name = "assignedTo")
@@ -48,9 +47,3 @@ public class Task {
     private Integer estimatedTime;
 }
 
-// Enum para o status da tarefa
-enum TaskStatus {
-    EM_ANDAMENTO,
-    CONCLUIDA,
-    ATRASADA
-}
