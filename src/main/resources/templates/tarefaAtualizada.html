@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Tarefa Atualizada</title>
+</head>
+<body>
+<p>Olá, <span th:text="${nomeUsuario}"></span>!</p>
+<p>A tarefa "<span th:text="${nomeTarefa}"></span>" no projeto "<span th:text="${nomeProjeto}"></span>" foi atualizada.</p>
+
+<h2>Detalhes da Tarefa:</h2>
+<ul>
+    <li>Nome: <span th:text="${nomeTarefa}"></span></li>
+    <li>Descrição: <span th:text="${descricaoTarefa}"></span></li>
+    <li>Prazo: <span th:text="${prazoTarefa}"></span></li>
+    <li>Status: <span th:text="${statusTarefa}"></span></li>
+</ul>
+
+<p>Atenciosamente,</p>
+<p>Equipe do TecFlux</p>
+</body>
+</html>

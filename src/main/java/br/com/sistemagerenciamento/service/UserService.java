@@ -1,7 +1,7 @@
 package br.com.sistemagerenciamento.service;
 
 import br.com.sistemagerenciamento.domain.User;
-import br.com.sistemagerenciamento.dto.UserWithoutPassword;
+import br.com.sistemagerenciamento.dto.user.UserWithoutPassword;
 import br.com.sistemagerenciamento.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

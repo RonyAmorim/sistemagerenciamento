@@ -1,9 +1,9 @@
 package br.com.sistemagerenciamento.controller;
 
 import br.com.sistemagerenciamento.domain.User;
-import br.com.sistemagerenciamento.dto.LoginRequestDTO;
-import br.com.sistemagerenciamento.dto.RegisterRequestDTO;
-import br.com.sistemagerenciamento.dto.ResponseDTO;
+import br.com.sistemagerenciamento.dto.user.LoginRequestDTO;
+import br.com.sistemagerenciamento.dto.user.RegisterRequestDTO;
+import br.com.sistemagerenciamento.dto.user.ResponseDTO;
 import br.com.sistemagerenciamento.infra.security.TokenService;
 import br.com.sistemagerenciamento.repository.UserRepository;
 import lombok.RequiredArgsConstructor;

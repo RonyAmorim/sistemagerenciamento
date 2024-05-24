@@ -1,8 +1,8 @@
 package br.com.sistemagerenciamento.service;
 
 import br.com.sistemagerenciamento.domain.Project;
-import br.com.sistemagerenciamento.dto.ProjectRegisterRequestDTO;
-import br.com.sistemagerenciamento.dto.UpdateProjectDTO;
+import br.com.sistemagerenciamento.dto.project.ProjectRegisterRequestDTO;
+import br.com.sistemagerenciamento.dto.project.UpdateProjectDTO;
 import br.com.sistemagerenciamento.repository.ProjectRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

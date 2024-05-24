@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Novo Impedimento Reportado</title>
+</head>
+<body>
+<p>Olá, <span th:text="${nomeResponsavel}"></span>!</p>
+<p>Um novo impedimento foi reportado no projeto "<span th:text="${nomeProjeto}"></span>":</p>
+
+<h2>Detalhes do Impedimento:</h2>
+<p th:text="${descricaoImpedimento}"></p>
+
+<p>Reportado por: <span th:text="${nomeUsuario}"></span></p>
+
+<p>Atenciosamente,</p>
+<p>Equipe do TecFlux</p>
+</body>
+</html>

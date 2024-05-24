@@ -1,6 +1,6 @@
 package br.com.sistemagerenciamento.controller;
 
-import br.com.sistemagerenciamento.dto.UserWithoutPassword;
+import br.com.sistemagerenciamento.dto.user.UserWithoutPassword;
 import br.com.sistemagerenciamento.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

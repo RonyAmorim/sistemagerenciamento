@@ -1,4 +1,4 @@
-package br.com.sistemagerenciamento.dto;
+package br.com.sistemagerenciamento.dto.project;
 
 import br.com.sistemagerenciamento.domain.Project;
 
