@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface TeamRepository extends JpaRepository<Team, Long> {
@@ -18,12 +17,12 @@ public interface TeamRepository extends JpaRepository<Team, Long> {
     List<Team> findByNameIgnoreCase(String name);
 
     // Buscar times de um projeto específico
-    List<Team> findByProjectId(Long projectId);
+    List<Team> findByProjectProjectId(Long projectId);
 
     // Verificar se existe um time com o nome fornecido (ignorando maiúsculas/minúsculas) dentro de um projeto
-    boolean existsByNameIgnoreCaseAndProjectId(String name, Long projectId);
+    boolean existsByNameIgnoreCaseAndProjectProjectId(String name, Long projectId);
 
-    // Verificar se a equipe exisste
+    // Verificar se a equipe existe
     boolean existsByTeamId(Long teamId);
 
     @Modifying
@@ -35,7 +34,6 @@ public interface TeamRepository extends JpaRepository<Team, Long> {
     @Modifying
     @Transactional
     // Excluir um time por id
-    @Query("DELETE FROM Team t WHERE t.projectId = :projectId")
+    @Query("DELETE FROM Team t WHERE t.project.projectId = :projectId")
     void deleteTeamsByProjectId(@Param("projectId") Long projectId);
-
 }
