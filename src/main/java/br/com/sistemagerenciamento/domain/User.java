@@ -2,7 +2,6 @@ package br.com.sistemagerenciamento.domain;
 
 import jakarta.persistence.*;
 import lombok.Data;
-
 import java.time.LocalDate;
 
 @Entity
@@ -34,4 +33,3 @@ public class User {
         creationDate = LocalDate.now();
     }
 }
-

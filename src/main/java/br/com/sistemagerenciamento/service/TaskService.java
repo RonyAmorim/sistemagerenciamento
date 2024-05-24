@@ -1,13 +1,9 @@
 package br.com.sistemagerenciamento.service;
 
-import br.com.sistemagerenciamento.domain.Task;
-import br.com.sistemagerenciamento.repository.TaskRepository;
-import org.thymeleaf.context.Context;
-
 
 public class TaskService {
 
-    TaskRepository taskRepository;
+/*    TaskRepository taskRepository;
 
     EmailService emailService;
 
@@ -23,5 +19,5 @@ public class TaskService {
         emailService.sendEmail(task.getAssignedTo().getEmail(), "Nova Tarefa Criada", "nova_tarefa.html", context);
         return taskRepository.save(task);
     }
-
+*/
 }

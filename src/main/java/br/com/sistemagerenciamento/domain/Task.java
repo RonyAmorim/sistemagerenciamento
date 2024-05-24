@@ -2,9 +2,7 @@ package br.com.sistemagerenciamento.domain;
 
 import jakarta.persistence.*;
 import lombok.Data;
-
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "Task")
@@ -22,10 +20,10 @@ public class Task {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column (name = "description", nullable = false, columnDefinition = "TEXT")
+    @Column(name = "description", nullable = false, columnDefinition = "TEXT")
     private String description;
 
-    @Column (name = "deadline", nullable = false)
+    @Column(name = "deadline", nullable = false)
     private LocalDate deadline;
 
     @Column(name = "status", nullable = false)
@@ -38,10 +36,9 @@ public class Task {
     @Column(name = "creation_date", nullable = false)
     private LocalDate creationDate;
 
-    @Column (name = "last_update", nullable = false)
+    @Column(name = "last_update", nullable = false)
     private LocalDate startDate;
 
-    @Column (name = "end_date", nullable = false)
+    @Column(name = "end_date", nullable = false)
     private LocalDate endDate;
 }
-
