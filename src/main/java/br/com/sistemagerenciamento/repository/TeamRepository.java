@@ -28,11 +28,13 @@ public interface TeamRepository extends JpaRepository<Team, Long> {
 
     @Modifying
     @Transactional
+    // Atualizar o nome de um time
     @Query("UPDATE Team t SET t.name = :newName WHERE t.teamId = :teamId")
     void updateTeamName(@Param("teamId") Long teamId, @Param("newName") String newName);
 
     @Modifying
     @Transactional
+    // Excluir um time por id
     @Query("DELETE FROM Team t WHERE t.projectId = :projectId")
     void deleteTeamsByProjectId(@Param("projectId") Long projectId);
 
