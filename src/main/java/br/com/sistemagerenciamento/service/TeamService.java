@@ -17,8 +17,9 @@ public class TeamService {
     @Autowired
     private ProjectRepository projectRepository;
 
+    //listar equipe por ID do projeto
     public List<Team> listTeamsByProjectId(Long projectId) {
-        return (List<Team>) teamRepository.findByProjectProjectId(projectId);
+        return teamRepository.findByProjectProjectId(projectId);
     }
 
     //criar uma equipe
@@ -48,8 +49,9 @@ public class TeamService {
     @Transactional
     //deletar uma equipe
     public void delete(Long teamId) {
+        //verifica se a equipe existe
         if (!teamRepository.existsById(teamId)) {
-            throw new RuntimeException("Time não encontrado com o ID: " + teamId);
+            throw new RuntimeException("Equipe não encontrada com o ID: " + teamId);
         }
         teamRepository.deleteById(teamId);
     }
