@@ -1,9 +1,12 @@
 package br.com.sistemagerenciamento.service;
 
 import br.com.sistemagerenciamento.domain.User;
+import br.com.sistemagerenciamento.dto.user.UpdateUserRequestDTO;
 import br.com.sistemagerenciamento.dto.user.UserWithoutPassword;
 import br.com.sistemagerenciamento.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +17,9 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    @Lazy
+    private PasswordEncoder passwordEncoder;
 
     // Método para retornar todos os usuários sem senha
     public List<UserWithoutPassword> listUsers() {
@@ -54,9 +60,42 @@ public class UserService {
         return userRepository.existsByEmail(email);
     }
 
-    // Método para atualizar a senha de um usuário
-    public void updatePassword(String email, String newPassword) {
-        userRepository.updatePasswordByEmail(newPassword, email);
+    public User updateUser(String email, UpdateUserRequestDTO userDto) {
+        User existingUser = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado com o email: " + email));
+
+        // Atualiza os campos permitidos
+        if (userDto.name() != null) {
+            existingUser.setName(userDto.name());
+        }
+        if (userDto.email() != null) {
+            // Verifica se o novo email já existe
+            if (userRepository.existsByEmail(userDto.email())) {
+                throw new RuntimeException("Email já cadastrado");
+            }
+            existingUser.setEmail(userDto.email());
+        }
+        if (userDto.type() != null) {
+            existingUser.setType(userDto.type());
+        }
+        if (userDto.password() != null) {
+            existingUser.setPassword(passwordEncoder.encode(userDto.password()));
+        }
+
+        return userRepository.save(existingUser);
+    }
+
+    public void updatePassword(String email, String oldPassword, String newPassword) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado com o email: " + email));
+
+        // Verifica se a senha antiga está correta
+        if (passwordEncoder.matches(oldPassword, user.getPassword())) {
+            user.setPassword(passwordEncoder.encode(newPassword)); // Codifica a nova senha
+            userRepository.save(user);
+        } else {
+            throw new RuntimeException("Senha antiga incorreta");
+        }
     }
 
     // Método para atualizar o tipo de um usuário
@@ -70,7 +109,7 @@ public class UserService {
     }
 
     // Método de conversão de User para UserWithoutPassword
-    private UserWithoutPassword convertToUserWithoutPassword(User user) {
+    public UserWithoutPassword convertToUserWithoutPassword(User user) {
         return new UserWithoutPassword(user.getUserId(), user.getName(), user.getEmail(), user.getType());
     }
 }
