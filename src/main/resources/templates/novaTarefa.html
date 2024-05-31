@@ -1,21 +1,65 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Nova Tarefa Atribuída</title>
+    <title>TecFlux - Nova Tarefa</title>
+    <style>
+        body {
+            background-color: #17212f; /* Fundo escuro */
+            color: #f1ffff;             /* Texto branco */
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            padding: 20px;
+        }
+        .conteudo{
+            background-color: 1f2d40;
+        }
+
+        h1, h2 {
+            color: #4caf50;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 10px;
+            border-top: 1px solid #cae6fc;
+
+        }
+        .footer img {
+            color: #789eac;
+            margin-bottom: -15px;
+            width: 80px; /* Ajuste o tamanho da logo conforme necessário */
+            border-radius: 50px;
+        }
+    </style>
 </head>
 <body>
-<p>Olá, <span th:text="${nomeUsuario}"></span>!</p>
-<p>Uma nova tarefa foi atribuída a você no projeto "<span th:text="${nomeProjeto}"></span>".</p>
+<div style="background-color: #1f2d40; padding: 30px; border-radius: 10px;">
+    <h1 th:text="${assunto}"></h1>
+    <div class="conteudo" th:replace="conteudo">
+        <p>Olá, <span th:text="${nomeUsuario}"></span>!</p>
+        <p>Uma nova tarefa foi atribuída a você no projeto "<span th:text="${nomeProjeto}"></span>":</p>
 
-<h2>Detalhes da Tarefa:</h2>
-<ul>
-    <li>Nome: <span th:text="${nomeTarefa}"></span></li>
-    <li>Descrição: <span th:text="${descricaoTarefa}"></span></li>
-    <li>Status: <span th:text="${statusTarefa}"></span></li>
-    <li>Prazo: <span th:text="${prazoTarefa}"></span></li>
-</ul>
+        <h2>Detalhes da Tarefa:</h2>
+        <ul>
+            <li><b>Nome:</b> <span th:text="${nomeTarefa}"></span></li>
+            <li><b>Descrição:</b> <span th:text="${descricaoTarefa}"></span></li>
+            <li><b>Status:</b> <span th:text="${statusTarefa}"></span></li>
+            <li><b>Prazo:</b> <span th:text="${prazoTarefa}"></span></li>
+        </ul>
+    </div>
 
-<p>Atenciosamente,</p>
-<p>Equipe do TecFlux</p>
+    <div class="footer">
+        <a href="https://ibb.co/MCk0Pjp"><img src="https://i.ibb.co/MCk0Pjp/logo-tecflux.png" alt="logo-tecflux" border="0"></a>
+        <p>Atenciosamente,</p>
+        <p>Equipe <b>TecFlux</b></p>
+    </div>
+
+</div>
 </body>
 </html>
