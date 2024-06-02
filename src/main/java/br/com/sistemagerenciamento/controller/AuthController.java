@@ -4,9 +4,12 @@ import br.com.sistemagerenciamento.domain.User;
 import br.com.sistemagerenciamento.dto.user.LoginRequestDTO;
 import br.com.sistemagerenciamento.dto.user.RegisterRequestDTO;
 import br.com.sistemagerenciamento.dto.user.ResponseDTO;
+import br.com.sistemagerenciamento.dto.user.UserWithoutPassword;
 import br.com.sistemagerenciamento.infra.security.TokenService;
 import br.com.sistemagerenciamento.repository.UserRepository;
+import br.com.sistemagerenciamento.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,6 +28,9 @@ public class AuthController {
     private final PasswordEncoder passwordEncoder;
     private final TokenService tokenService;
 
+    @Autowired
+    private UserService userService;
+
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequestDTO body) {
         User usuario = userRepository.findByEmail(body.email())
@@ -32,7 +38,10 @@ public class AuthController {
 
         if (passwordEncoder.matches(body.password(), usuario.getPassword())) {
             String token = tokenService.generateToken(usuario.getEmail()); // Passamos o email para o TokenService
-            return ResponseEntity.ok(new ResponseDTO(usuario.getName() , token));
+            UserWithoutPassword user = userService.findByEmail(usuario.getEmail());
+
+            ResponseEntity<ResponseDTO> ok = ResponseEntity.ok(new ResponseDTO(user.id(), user.username(), user.type()));
+            return ok;
         }
 
         return ResponseEntity.badRequest().build();
@@ -53,7 +62,10 @@ public class AuthController {
 
         userRepository.save(novoUsuario);
 
+        UserWithoutPassword user = userService.findByEmail(novoUsuario.getEmail());
+
         String token = tokenService.generateToken(novoUsuario.getEmail());
-        return ResponseEntity.ok(new ResponseDTO(novoUsuario.getName(), token));
+        ResponseEntity<ResponseDTO> ok = ResponseEntity.ok(new ResponseDTO(user.id(), user.username(), user.type()));
+        return ok;
     }
 }

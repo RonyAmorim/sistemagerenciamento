@@ -1,6 +1,7 @@
 package br.com.sistemagerenciamento.repository;
 
 import br.com.sistemagerenciamento.domain.User;
+import br.com.sistemagerenciamento.dto.user.UserWithoutPassword;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -14,6 +15,9 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User, Long> {
     //Metodo para buscar um usuario por email
     Optional<User> findByEmail(String email);
+
+    // Método para buscar um usuário por ID
+    Optional<User> findById(Long id);
 
     // Método para buscar todos os usuário por nome
     List<User> findByNameContainingIgnoreCase(String name);
