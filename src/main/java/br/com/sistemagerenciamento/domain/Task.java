@@ -20,10 +20,6 @@ public class Task {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "team_id")
-    private Team team;
-
     @Column(name = "description", nullable = false, columnDefinition = "TEXT")
     private String description;
 
