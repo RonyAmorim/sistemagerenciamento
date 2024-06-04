@@ -1,5 +1,6 @@
 package br.com.sistemagerenciamento.service;
 
+import br.com.sistemagerenciamento.domain.Project;
 import br.com.sistemagerenciamento.domain.Team;
 import br.com.sistemagerenciamento.repository.ProjectRepository;
 import br.com.sistemagerenciamento.repository.TeamRepository;
@@ -27,6 +28,14 @@ public class TeamService {
         if (teamRepository.existsByNameIgnoreCaseAndProjectProjectId(team.getName(), team.getProject().getProjectId())) {
             throw new RuntimeException("Já existe uma equipe com o nome: " + team.getName() + " neste projeto.");
         }
+
+        Project project = projectRepository.findById(team.getProject().getProjectId())
+                .orElseThrow(() -> new RuntimeException("Projeto não encontrado com o ID: " + team.getProject().getProjectId())); //verifica se o projeto existe
+
+        //seta o projeto da equipe
+        team.setProject(project);
+
+
         return teamRepository.save(team);
     }
 
@@ -53,12 +62,12 @@ public class TeamService {
         if (!teamRepository.existsById(teamId)) {
             throw new RuntimeException("Equipe não encontrada com o ID: " + teamId);
         }
-        teamRepository.deleteById(teamId);
+        teamRepository.deleteById(teamId); //deleta a equipe
     }
 
     //encontrar uma equipe por um projeto
     public Team getTeamById(Long teamId) {
-        return teamRepository.findById(teamId)
+        return teamRepository.findById(teamId) //busca a equipe pelo ID
                 .orElseThrow(() -> new RuntimeException("Time não encontrado com o ID: " + teamId));
     }
 }

@@ -8,7 +8,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "UserTeam")
 @Data
-public class UserTeam {
+public class UserTeam implements Serializable {
     @EmbeddedId
     private UserTeamId id;
 

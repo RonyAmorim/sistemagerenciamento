@@ -26,11 +26,13 @@ public interface TeamRepository extends JpaRepository<Team, Long> {
     // Verificar se a equipe exisste
     boolean existsByTeamId(Long teamId);
 
+    // Atualizar o nome da equipe
     @Modifying
     @Transactional
     @Query("UPDATE Team t SET t.name = :newName WHERE t.teamId = :teamId")
     void updateTeamName(@Param("teamId") Long teamId, @Param("newName") String newName);
 
+    // Deletar equipes por ID do projeto
     @Modifying
     @Query("DELETE FROM Team t WHERE t.project.id = :projectId")
     void deleteTeamsByProjectId(@Param("projectId") Long projectId);
