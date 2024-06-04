@@ -28,11 +28,6 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
-    public UserWithoutPassword findById(Long id) {
-        return userRepository.findById(id).map(this::convertToUserWithoutPassword)
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado com o ID: " + id));
-    }
-
     // Método para buscar um usuário por email sem retornar a senha
     public UserWithoutPassword findByEmail(String email) {
         User user = userRepository.findByEmail(email)

@@ -32,7 +32,11 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 // Configura a autorização das requisições
                 .authorizeHttpRequests(authorize -> authorize
-                        .anyRequest().permitAll()
+                        // Permite o acesso aos endpoints de autenticação
+                        .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
+                        // Adicione aqui outros endpoints que não precisam de autenticação
+                        .anyRequest().authenticated() // Qualquer outra requisição precisa de autenticação
                 )
                 // Adiciona o filtro de segurança antes do filtro de autenticação
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)

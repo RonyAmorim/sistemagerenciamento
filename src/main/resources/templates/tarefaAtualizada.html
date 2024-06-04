@@ -1,71 +1,65 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <title>TecFlux - Tarefa Atualizada</title>
     <style>
         body {
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            background-color: #17212f;
-            color: #fff;
-            margin: 0;
+            background-color: #17212f; /* Fundo escuro */
+            color: #f1ffff;             /* Texto branco */
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            padding: 20px;
+        }
+        .conteudo{
+            background-color: 1f2d40;
+        }
+
+        h1, h2 {
+            color: #FFD700;
+        }
+        ul {
+            list-style: none;
             padding: 0;
         }
-        .container {
-            width: 80%;
-            margin: 20px auto;
-            background-color: #1f2d40;
-            opacity: 0.8;
-            border-radius: 12px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            color: #a2a6ac;
-        }
-        .content {
-            margin-top: 20px;
-            padding: 10px;
-            border: 1px solid #304562;
-            border-radius: 3px;
-        }
-        h1 {
-            color: #feedaf;
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-        p {
-            color: #ffffff;
+        li {
+            margin-bottom: 10px;
         }
         .footer {
             text-align: center;
-            margin-top: 40px;
-            color: #777;
+            margin-top: 30px;
+            padding: 10px;
+            border-top: 1px solid #cae6fc;
+
         }
         .footer img {
-            width: 100px;
-            border-radius: 50%;
-            margin-bottom: 10px;
+            color: #789eac;
+            margin-bottom: -15px;
+            width: 80px; /* Ajuste o tamanho da logo conforme necessário */
+            border-radius: 50px;
         }
     </style>
 </head>
 <body>
-<div class="container">
-    <h1>Tarefa Atualizada</h1>
-    <div class="content">
-        <p>Olá, <span th:text="${nomeUsuario}"></span>!</p>
-        <p>A tarefa "<span th:text="${nomeTarefa}"></span>" no projeto "<span th:text="${nomeProjeto}"></span>" foi atualizada.</p>
+<div style="background-color: #1f2d40; padding: 30px; border-radius: 10px;">
+    <h1 th:text="${assunto}"></h1>
+    <div class="conteudo" th:replace="conteudo">
+            <p>Olá, <span th:text="${nomeUsuario}"></span>!</p>
+            <p>A tarefa "<span th:text="${nomeTarefa}"></span>" no projeto "<span th:text="${nomeProjeto}"></span>" foi atualizada.</p>
 
-        <h2>Detalhes da Tarefa:</h2>
-        <ul>
-            <li><b>Nome:</b> <span th:text="${nomeTarefa}"></span></li>
-            <li><b>Descrição:</b> <span th:text="${descricaoTarefa}"></span></li>
-            <li><b>Status:</b> <span th:text="${statusTarefa}"></span></li>
-            <li><b>Prazo:</b> <span th:text="${prazoTarefa}"></span></li>
-        </ul>
+            <h2>Detalhes da Tarefa:</h2>
+            <ul>
+                <li><b>Nome:</b> <span th:text="${nomeTarefa}"></span></li>
+                <li><b>Descrição:</b> <span th:text="${descricaoTarefa}"></span></li>
+                <li><b>Status:</b> <span th:text="${statusTarefa}"></span></li>
+                <li><b>Prazo:</b> <span th:text="${prazoTarefa}"></span></li>
+            </ul>
     </div>
 
     <div class="footer">
         <a href="https://ibb.co/MCk0Pjp"><img src="https://i.ibb.co/MCk0Pjp/logo-tecflux.png" alt="logo-tecflux" border="0"></a>
         <p>Atenciosamente,</p>
-        <p>Equipe TecFlux</p>
+        <p>Equipe <b>TecFlux</b></p>
     </div>
+
 </div>
 </body>
 </html>
