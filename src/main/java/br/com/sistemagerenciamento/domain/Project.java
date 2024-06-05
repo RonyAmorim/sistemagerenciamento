@@ -14,6 +14,10 @@ public class Project {
     @Column(name = "project_id")
     private Long projectId;
 
+    @ManyToOne
+    @JoinColumn(name = "responsible_id")
+    private User responsibleId;
+
     @Column(name = "name", nullable = false)
     private String name;
 
@@ -25,4 +29,8 @@ public class Project {
 
     @Column(name = "creation_date", nullable = false)
     private LocalDate creationDate;
+
+    @ManyToOne
+    @JoinColumn(name = "team_id")
+    private Team teamId;
 }

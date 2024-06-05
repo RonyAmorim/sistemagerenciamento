@@ -1,4 +1,4 @@
 package br.com.sistemagerenciamento.dto.project;
 
-public record ProjectRegisterRequestDTO(String name, String description, String status) {
+public record ProjectRegisterRequestDTO(String name, String description, String status, Long ManagerId, Long teamId) {
 }

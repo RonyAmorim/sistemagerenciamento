@@ -12,6 +12,10 @@ public class Team {
     @Column(name = "team_id")
     private Long teamId;
 
+    @ManyToOne
+    @JoinColumn(name =  "manager_id")
+    private User managerId;
+
     @Column(name = "name", nullable = false)
     private String name;
 
