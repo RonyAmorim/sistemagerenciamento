@@ -13,9 +13,6 @@ public record UpdateUserRequestDTO(
         String email,
 
         @NotBlank(message = "O tipo não pode estar em branco")
-        String type,
-
-        @Size(min = 8, message = "A senha deve ter no mínimo 8 caracteres")
-        String password
+        String type
 ) {
 }

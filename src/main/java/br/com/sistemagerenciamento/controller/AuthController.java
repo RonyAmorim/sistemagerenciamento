@@ -31,8 +31,7 @@ public class AuthController {
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
         if (passwordEncoder.matches(body.password(), usuario.getPassword())) {
-            String token = tokenService.generateToken(usuario.getEmail()); // Passamos o email para o TokenService
-            return ResponseEntity.ok(new ResponseDTO(usuario.getName() , token));
+            return ResponseEntity.ok(new ResponseDTO(usuario.getUserId(), usuario.getName(), usuario.getType()));
         }
 
         return ResponseEntity.badRequest().build();
@@ -54,6 +53,6 @@ public class AuthController {
         userRepository.save(novoUsuario);
 
         String token = tokenService.generateToken(novoUsuario.getEmail());
-        return ResponseEntity.ok(new ResponseDTO(novoUsuario.getName(), token));
+        return ResponseEntity.ok(new ResponseDTO(novoUsuario.getUserId(), novoUsuario.getName(), novoUsuario.getType()));
     }
 }

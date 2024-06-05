@@ -78,9 +78,6 @@ public class UserService {
         if (userDto.type() != null) {
             existingUser.setType(userDto.type());
         }
-        if (userDto.password() != null) {
-            existingUser.setPassword(passwordEncoder.encode(userDto.password()));
-        }
 
         return userRepository.save(existingUser);
     }
