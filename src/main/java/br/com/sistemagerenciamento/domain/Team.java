@@ -16,10 +16,10 @@ public class Team {
     @JoinColumn(name =  "manager_id")
     private User managerId;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", nullable = false, unique = true)
     private String name;
 
-    @ManyToOne // Muitos times podem pertencer a um projeto
+    @ManyToOne
     @JoinColumn(name = "project_id")
     private Project project;
 }

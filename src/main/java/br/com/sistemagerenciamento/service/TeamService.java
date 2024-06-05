@@ -1,73 +1,56 @@
 package br.com.sistemagerenciamento.service;
 
-import br.com.sistemagerenciamento.domain.Project;
 import br.com.sistemagerenciamento.domain.Team;
-import br.com.sistemagerenciamento.repository.ProjectRepository;
+import br.com.sistemagerenciamento.exception.ResourceNotFoundException;
 import br.com.sistemagerenciamento.repository.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
 public class TeamService {
+
     @Autowired
     private TeamRepository teamRepository;
 
-    @Autowired
-    private ProjectRepository projectRepository;
-
-    //listar equipe por ID do projeto
-    public List<Team> listTeamsByProjectId(Long projectId) {
-        return teamRepository.findByProjectProjectId(projectId);
-    }
-
-    //criar uma equipe
-    public Team create(Team team) {
-        if (teamRepository.existsByNameIgnoreCaseAndProjectProjectId(team.getName(), team.getProject().getProjectId())) {
-            throw new RuntimeException("Já existe uma equipe com o nome: " + team.getName() + " neste projeto.");
-        }
-
-        Project project = projectRepository.findById(team.getProject().getProjectId())
-                .orElseThrow(() -> new RuntimeException("Projeto não encontrado com o ID: " + team.getProject().getProjectId())); //verifica se o projeto existe
-
-        //seta o projeto da equipe
-        team.setProject(project);
-
-
+    public Team createTeam(Team team) {
+        team.setProject(null); // Evita que o projeto seja criado junto com a equipe
         return teamRepository.save(team);
     }
 
-    //atualizar uma equipe
-    public Team update(Long teamId, Team updatedTeam) {
-        Team existingTeam = teamRepository.findById(teamId)
-                .orElseThrow(() -> new RuntimeException("Equipe não encontrada com o ID: " + teamId));
+    public Team getTeamById(Long teamId) {
+        return teamRepository.findById(teamId)
+                .orElseThrow(() -> new ResourceNotFoundException("Equipe não encontrada com ID: " + teamId));
+    }
 
-        // Verifica se o novo nome já existe em outra equipe do mesmo projeto
-        if (!existingTeam.getName().equalsIgnoreCase(updatedTeam.getName()) &&
-                teamRepository.existsByNameIgnoreCaseAndProjectProjectId(updatedTeam.getName(), existingTeam.getProject().getProjectId())) {
-            throw new RuntimeException("Já existe uam equipe com o nome: " + updatedTeam.getName() + " neste projeto.");
-        }
+    public List<Team> getAllTeams() {
+        return teamRepository.findAll();
+    }
 
-        existingTeam.setName(updatedTeam.getName());
-
+    public Team updateTeam(Long teamId, Team updatedTeam) {
+        Team existingTeam = getTeamById(teamId);
+        existingTeam.setProject(updatedTeam.getProject());
         return teamRepository.save(existingTeam);
     }
 
-    @Transactional
-    //deletar uma equipe
-    public void delete(Long teamId) {
-        //verifica se a equipe existe
-        if (!teamRepository.existsById(teamId)) {
-            throw new RuntimeException("Equipe não encontrada com o ID: " + teamId);
-        }
-        teamRepository.deleteById(teamId); //deleta a equipe
+    public void deleteTeam(Long teamId) {
+        teamRepository.deleteById(teamId);
     }
 
-    //encontrar uma equipe por um projeto
-    public Team getTeamById(Long teamId) {
-        return teamRepository.findById(teamId) //busca a equipe pelo ID
-                .orElseThrow(() -> new RuntimeException("Time não encontrado com o ID: " + teamId));
+    public List<Team> findByNameIgnoreCase(String name){
+        return teamRepository.findByNameIgnoreCase(name);
+    }
+
+    public List<Team> findByProjectProjectId(Long projectId) {
+        return teamRepository.findByProjectProjectId(projectId);
+    }
+
+    public void updateTeamProjectId(Long teamId, Long projectId) {
+        if (teamRepository.existsByTeamId(teamId)) {
+            teamRepository.updateTeamProjectId(teamId, projectId);
+        } else {
+            throw new ResourceNotFoundException("Equipe não encontrada com o ID: " + teamId);
+        }
     }
 }

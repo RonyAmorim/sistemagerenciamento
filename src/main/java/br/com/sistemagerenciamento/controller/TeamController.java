@@ -2,7 +2,6 @@ package br.com.sistemagerenciamento.controller;
 
 import br.com.sistemagerenciamento.domain.Team;
 import br.com.sistemagerenciamento.service.TeamService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,42 +10,51 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/teams") // Endpoint base para equipes
+@RequestMapping("/teams")
 public class TeamController {
 
     @Autowired
     private TeamService teamService;
 
-    // Listar times por ID do projeto
-    @GetMapping("/project/{projectId}")
-    public ResponseEntity<List<Team>> listTeamsByProjectId(@PathVariable Long projectId) {
-        return ResponseEntity.ok(teamService.listTeamsByProjectId(projectId));
-    }
-
-    // Criar uma equipe
     @PostMapping
-    public ResponseEntity<Team> createTeam(@RequestBody @Valid Team team) {
-        Team newTeam = teamService.create(team);
-        return ResponseEntity.status(HttpStatus.CREATED).body(newTeam);
+    public ResponseEntity<Team> createTeam(@RequestBody Team team) {
+        Team createdTeam = teamService.createTeam(team);
+        return new ResponseEntity<>(createdTeam, HttpStatus.CREATED);
     }
 
-    // Atualizar uma equipe
-    @PutMapping("/{teamId}")
-    public ResponseEntity<Team> updateTeam(@PathVariable Long teamId, @RequestBody @Valid Team updatedTeam) {
-        Team team = teamService.update(teamId, updatedTeam);
-        return ResponseEntity.ok(team);
-    }
-
-    // Deletar uma equipe
-    @DeleteMapping("/{teamId}")
-    public ResponseEntity<Void> deleteTeam(@PathVariable Long teamId) {
-        teamService.delete(teamId);
-        return ResponseEntity.noContent().build();
-    }
-
-    // Buscar uma equipe por ID
     @GetMapping("/{teamId}")
     public ResponseEntity<Team> getTeamById(@PathVariable Long teamId) {
-        return ResponseEntity.ok(teamService.getTeamById(teamId));
+        Team team = teamService.getTeamById(teamId);
+        return new ResponseEntity<>(team, HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Team>> getAllTeams() {
+        List<Team> teams = teamService.getAllTeams();
+        return new ResponseEntity<>(teams, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{teamId}")
+    public ResponseEntity<Void> deleteTeam(@PathVariable Long teamId) {
+        teamService.deleteTeam(teamId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PutMapping("/{teamId}/project/{projectId}")
+    public ResponseEntity<Void> updateTeamProjectId(@PathVariable Long teamId, @PathVariable Team updateTeam) {
+        teamService.updateTeamProjectId(teamId, updateTeam.getProject().getProjectId());
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/name/{name}")
+    public ResponseEntity<List<Team>> getTeamsByName(@PathVariable String name) {
+        List<Team> teams = teamService.findByNameIgnoreCase(name);
+        return ResponseEntity.ok(teams);
+    }
+
+    @GetMapping("/project/{projectId}")
+    public ResponseEntity<List<Team>> getTeamsByProjectId(@PathVariable Long projectId) {
+        List<Team> teams = teamService.findByProjectProjectId(projectId);
+        return ResponseEntity.ok(teams);
     }
 }
