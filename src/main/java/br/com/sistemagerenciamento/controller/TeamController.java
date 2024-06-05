@@ -1,5 +1,6 @@
 package br.com.sistemagerenciamento.controller;
 
+import br.com.sistemagerenciamento.domain.Project;
 import br.com.sistemagerenciamento.domain.Team;
 import br.com.sistemagerenciamento.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,9 +42,9 @@ public class TeamController {
     }
 
     @PutMapping("/{teamId}/project/{projectId}")
-    public ResponseEntity<Void> updateTeamProjectId(@PathVariable Long teamId, @PathVariable Team updateTeam) {
-        teamService.updateTeamProjectId(teamId, updateTeam.getProject().getProjectId());
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<String> updateTeamProjectId(@PathVariable Long teamId, @RequestBody Project project) {
+        teamService.updateTeamProjectId(teamId, project);
+        return ResponseEntity.ok("Projeto atualizado com sucesso!");
     }
 
     @GetMapping("/name/{name}")

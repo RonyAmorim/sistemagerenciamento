@@ -1,5 +1,6 @@
 package br.com.sistemagerenciamento.service;
 
+import br.com.sistemagerenciamento.domain.Project;
 import br.com.sistemagerenciamento.domain.Team;
 import br.com.sistemagerenciamento.exception.ResourceNotFoundException;
 import br.com.sistemagerenciamento.repository.TeamRepository;
@@ -46,9 +47,9 @@ public class TeamService {
         return teamRepository.findByProjectProjectId(projectId);
     }
 
-    public void updateTeamProjectId(Long teamId, Long projectId) {
+    public void updateTeamProjectId(Long teamId, Project project) {
         if (teamRepository.existsByTeamId(teamId)) {
-            teamRepository.updateTeamProjectId(teamId, projectId);
+            teamRepository.updateTeamProjectId(teamId, project);
         } else {
             throw new ResourceNotFoundException("Equipe não encontrada com o ID: " + teamId);
         }

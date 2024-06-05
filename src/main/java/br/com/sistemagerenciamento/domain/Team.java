@@ -16,10 +16,10 @@ public class Team {
     @JoinColumn(name =  "manager_id")
     private User managerId;
 
-    @Column(name = "name", nullable = false, unique = true)
+    @Column(name = "name", nullable = false)
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "project_id")
+    @JoinColumn(name = "project_id", referencedColumnName = "project_id")
     private Project project;
 }
