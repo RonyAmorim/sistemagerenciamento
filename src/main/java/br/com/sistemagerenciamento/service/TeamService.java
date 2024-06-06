@@ -21,6 +21,9 @@ public class TeamService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private UserTeamService userTeamService;
+
     public Team createTeam(TeamRegisterRequestDTO teamDTO) {
         User manager = userRepository.findById(teamDTO.managerId())
                 .orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado com ID: " + teamDTO.managerId()));
@@ -30,8 +33,11 @@ public class TeamService {
         team.setName(teamDTO.name());
         team.setManagerId(manager);
 
+        Team createdTeam = teamRepository.save(team);
+        userTeamService.addUserToTeam(manager.getUserId(), createdTeam.getTeamId());
+
         // 3. Salva a equipe no banco
-        return teamRepository.save(team);
+        return createdTeam;
     }
 
     public Team getTeamById(Long teamId) {
