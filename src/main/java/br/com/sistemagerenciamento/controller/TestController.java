@@ -10,6 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestController {
     @GetMapping
     public ResponseEntity<String> getTeste(){
-        return ResponseEntity.ok("Teste de rota funcionando!");
+        return ResponseEntity.ok("Hello World!");
     }
 }
