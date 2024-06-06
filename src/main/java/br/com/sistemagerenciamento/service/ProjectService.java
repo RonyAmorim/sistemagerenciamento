@@ -1,10 +1,11 @@
 package br.com.sistemagerenciamento.service;
 
 import br.com.sistemagerenciamento.domain.Project;
+import br.com.sistemagerenciamento.domain.Team;
+import br.com.sistemagerenciamento.domain.User;
 import br.com.sistemagerenciamento.dto.project.ProjectRegisterRequestDTO;
-import br.com.sistemagerenciamento.dto.project.UpdateProjectDTO;
+import br.com.sistemagerenciamento.exception.ResourceNotFoundException;
 import br.com.sistemagerenciamento.repository.ProjectRepository;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,58 +18,76 @@ public class ProjectService {
     @Autowired
     private ProjectRepository projectRepository;
 
-    // Lista todos os projetos
-    public List<Project> listProjects() {
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private TeamService teamService;
+
+    public Project createProject(ProjectRegisterRequestDTO projectDTO) {
+        // 1. Busca o usuário responsável e a equipe pelo ID
+        User responsibleUser = userService.findById(projectDTO.responsibleId());
+
+        Team team = teamService.getTeamById(projectDTO.teamId());
+
+        // 2. Cria um novo objeto Project e preenche os dados do DTO
+        Project project = new Project();
+        project.setName(projectDTO.name());
+        project.setDescription(projectDTO.description());
+        project.setStatus(projectDTO.status());
+        project.setResponsibleId(responsibleUser);
+        project.setTeamId(team);
+        project.setCreationDate(LocalDate.now());
+
+        // 3. Salva o projeto no banco de dados
+        Project createdProject = projectRepository.save(project);
+
+        // 4. Atualiza o ID do projeto na equipe (se necessário)
+        teamService.updateTeamProjectId(team.getTeamId(), createdProject);
+
+        return createdProject;
+    }
+
+    public Project getProjectById(Long id) {
+        return projectRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Projeto não encontrado com ID: " + id));
+    }
+
+    public List<Project> getAllProjects() {
         return projectRepository.findAll();
     }
 
-    // Busca um projeto por ID
-    public Project findById(Long id){
-        return projectRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Projeto não encontrado com o ID: " + id));
+    public Project updateProject(Long id, Project updatedProject) {
+        Project existingProject = getProjectById(id);
+        existingProject.setDescription(updatedProject.getDescription());
+        existingProject.setStatus(updatedProject.getStatus());
+
+        return existingProject;
     }
 
-    // Cria um novo projeto
-    public Project create(@Valid ProjectRegisterRequestDTO projectDto) { // Recebe o DTO como parâmetro
-        if(projectRepository.existsByNameIgnoreCase(projectDto.name())) {
-            throw new RuntimeException("Já existe um projeto com o nome: " + projectDto.name());
-        }
 
-        Project project = new Project(); // Cria um novo objeto Project
-        project.setName(projectDto.name());
-        project.setDescription(projectDto.description());
-        project.setStatus(projectDto.status());
-        project.setCreationDate(LocalDate.now()); // Define a data de criação
-
-        return projectRepository.save(project); // Salva o objeto Project no banco
-    }
-
-    // Atualiza um projeto existente
-    public Project update(Long id, @Valid UpdateProjectDTO updatedProject) {
-        Project existingProject = projectRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Projeto não encontrado com o ID: " + id));
-
-        existingProject.setDescription(updatedProject.description());
-        existingProject.setStatus(updatedProject.status());
-
-        return projectRepository.save(existingProject);
-    }
-
-    //
-    public void delete(Long id) {
-        if (!projectRepository.existsById(id)) {
-            throw new RuntimeException("Projeto não encontrado com o ID: " + id);
-        }
+    public void deleteProject(Long id) {
         projectRepository.deleteById(id);
     }
 
-    // Busca projetos por status
-    public List<Project> findByStatus(String status) {
+    public List<Project> findProjectsByName(String name) {
+        return projectRepository.findByNameContainingIgnoreCase(name);
+    }
+
+    public List<Project> findProjectsByStatus(String status) {
         return projectRepository.findByStatus(status);
     }
 
-    // Verifica se um projeto existe pelo ID
-    public boolean existsById(Long id) {
-        return projectRepository.existsById(id);
+    public List<Project> findProjectsByResponsibleId(Long responsibleId) {
+        return projectRepository.findByResponsibleIdUserId(responsibleId);
+    }
+
+
+    public void updateProjectStatus(Long id, String status) {
+        projectRepository.updateStatusById(id, status);
+    }
+
+    public void updateProjectDescription(Long id, String description) {
+        projectRepository.updateDescriptionById(id, description);
     }
 }

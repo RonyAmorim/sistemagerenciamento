@@ -12,6 +12,10 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long> {
+
+    //Metodo para buscar um usuario por id
+    Optional<User> findById(Long id);
+
     //Metodo para buscar um usuario por email
     Optional<User> findByEmail(String email);
 

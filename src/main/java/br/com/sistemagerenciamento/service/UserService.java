@@ -21,6 +21,12 @@ public class UserService {
     @Lazy
     private PasswordEncoder passwordEncoder;
 
+    //Metodo para buscar um usuario por id
+    public User findById(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Nenhum usuário encontrado com o ID: " + id));
+    }
+
     // Método para retornar todos os usuários sem senha
     public List<UserWithoutPassword> listUsers() {
         return userRepository.findAll().stream()

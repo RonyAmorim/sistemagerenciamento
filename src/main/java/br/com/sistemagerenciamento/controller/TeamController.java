@@ -2,8 +2,8 @@ package br.com.sistemagerenciamento.controller;
 
 import br.com.sistemagerenciamento.domain.Project;
 import br.com.sistemagerenciamento.domain.Team;
-import br.com.sistemagerenciamento.dto.Team.TeamRegisterRequestDTO;
-import br.com.sistemagerenciamento.dto.Team.TeamResponseDTO;
+import br.com.sistemagerenciamento.dto.team.TeamRegisterRequestDTO;
+import br.com.sistemagerenciamento.dto.team.TeamResponseDTO;
 import br.com.sistemagerenciamento.dto.user.UserResponseDTO;
 import br.com.sistemagerenciamento.service.TeamService;
 import jakarta.validation.Valid;

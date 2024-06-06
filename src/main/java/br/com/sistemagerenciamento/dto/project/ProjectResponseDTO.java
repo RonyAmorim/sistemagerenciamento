@@ -1,9 +1,13 @@
 package br.com.sistemagerenciamento.dto.project;
 
-import br.com.sistemagerenciamento.domain.Project;
+import br.com.sistemagerenciamento.dto.team.TeamProjectResponseDTO;
+import br.com.sistemagerenciamento.dto.user.UserResponseDTO;
 
-public record ProjectResponseDTO(Long projectId, String name, String description, String status) {
-    public ProjectResponseDTO(Project project) {
-        this(project.getProjectId(), project.getName(), project.getDescription(), project.getStatus());
-    }
-}
+public record ProjectResponseDTO(
+        Long projectId,
+        String name,
+        String description,
+        String status,
+        UserResponseDTO responsibleId,
+        TeamProjectResponseDTO teamId
+) { }

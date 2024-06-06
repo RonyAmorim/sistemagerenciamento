@@ -1,4 +1,4 @@
-package br.com.sistemagerenciamento.dto.Team;
+package br.com.sistemagerenciamento.dto.team;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

@@ -1,4 +1,4 @@
-package br.com.sistemagerenciamento.dto.Team;
+package br.com.sistemagerenciamento.dto.team;
 
 import br.com.sistemagerenciamento.dto.user.UserResponseDTO;
 

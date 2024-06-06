@@ -1,4 +1,12 @@
 package br.com.sistemagerenciamento.dto.project;
 
-public record ProjectRegisterRequestDTO(String name, String description, String status, Long ManagerId, Long teamId) {
-}
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
+public record ProjectRegisterRequestDTO(
+        @NotBlank String name,
+        String description,
+        @NotBlank String status,
+        @NotNull Long responsibleId,
+        @NotNull Long teamId
+) { }

@@ -3,7 +3,7 @@ package br.com.sistemagerenciamento.service;
 import br.com.sistemagerenciamento.domain.Project;
 import br.com.sistemagerenciamento.domain.Team;
 import br.com.sistemagerenciamento.domain.User;
-import br.com.sistemagerenciamento.dto.Team.TeamRegisterRequestDTO;
+import br.com.sistemagerenciamento.dto.team.TeamRegisterRequestDTO;
 import br.com.sistemagerenciamento.exception.ResourceNotFoundException;
 import br.com.sistemagerenciamento.repository.TeamRepository;
 import br.com.sistemagerenciamento.repository.UserRepository;
