@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.exceptions.TemplateInputException;
 import org.thymeleaf.spring6.SpringTemplateEngine;
@@ -22,12 +21,13 @@ public class EmailService {
     private SpringTemplateEngine templateEngine;
 
     public void sendEmail(String to, String subject, String templateName, Context context) {
-        Assert.notNull(to, "To address must not be null");
         MimeMessage mimeMessage = mailSender.createMimeMessage();
         try {
             MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage, true);
             messageHelper.setTo(to);
             messageHelper.setSubject(subject);
+            messageHelper.setFrom("noreply.tecflux@gmail.com"); // Adiciona o campo 'from'
+
             String content = templateEngine.process(templateName, context);
             messageHelper.setText(content, true);
             mailSender.send(mimeMessage);

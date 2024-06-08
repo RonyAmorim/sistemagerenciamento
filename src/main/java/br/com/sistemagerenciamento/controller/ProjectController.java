@@ -2,8 +2,10 @@ package br.com.sistemagerenciamento.controller;
 
 import br.com.sistemagerenciamento.domain.Project;
 import br.com.sistemagerenciamento.domain.Team;
+import br.com.sistemagerenciamento.dto.project.ProjectDescriptionUpdateDTO;
 import br.com.sistemagerenciamento.dto.project.ProjectRegisterRequestDTO;
 import br.com.sistemagerenciamento.dto.project.ProjectResponseDTO;
+import br.com.sistemagerenciamento.dto.project.ProjectStatusUpdateDTO;
 import br.com.sistemagerenciamento.dto.team.TeamProjectResponseDTO;
 import br.com.sistemagerenciamento.dto.user.UserResponseDTO;
 import br.com.sistemagerenciamento.exception.ResourceNotFoundException;
@@ -113,15 +115,15 @@ public class ProjectController {
 
     //Metodo para atualizar o status de um projeto
     @PatchMapping("/{id}/status")
-    public ResponseEntity<Void> updateProjectStatus(@PathVariable Long id, @RequestBody String status) {
-        projectService.updateProjectStatus(id, status);
+    public ResponseEntity<Void> updateProjectStatus(@PathVariable Long id, @Valid @RequestBody ProjectStatusUpdateDTO projectStatusUpdateDTO) {
+        projectService.updateProjectStatus(id, projectStatusUpdateDTO.status());
         return ResponseEntity.noContent().build();
     }
 
     //Metodo para atualizar a descrição de um projeto
     @PatchMapping("/{id}/description")
-    public ResponseEntity<Void> updateProjectDescription(@PathVariable Long id, @RequestBody String description) {
-        projectService.updateProjectDescription(id, description);
+    public ResponseEntity<Void> updateProjectDescription(@PathVariable Long id, @Valid @RequestBody ProjectDescriptionUpdateDTO projectDescriptionUpdateDTO) {
+        projectService.updateProjectDescription(id, projectDescriptionUpdateDTO.description());
         return ResponseEntity.noContent().build();
     }
 

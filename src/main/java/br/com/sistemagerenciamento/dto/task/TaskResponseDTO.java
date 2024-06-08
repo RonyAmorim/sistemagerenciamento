@@ -1,19 +1,17 @@
 package br.com.sistemagerenciamento.dto.task;
 
-import br.com.sistemagerenciamento.domain.Team;
 import br.com.sistemagerenciamento.dto.project.ProjectResponseDTO;
-import br.com.sistemagerenciamento.dto.user.UserWithoutPassword;
+import br.com.sistemagerenciamento.dto.project.ProjectTaskResponseDTO;
+import br.com.sistemagerenciamento.dto.user.UserResponseDTO;
 
 public record TaskResponseDTO(
-        Long taskId,
-        String name,
-        String description,
-        String status,
-        String deadline,
-        String startDate,
-        String endDate,
-        ProjectResponseDTO project,
-        UserWithoutPassword assignedTo,
-        Team team
-) {
-}
+    Long taskId,
+    String name,
+    String description,
+    String status,
+    String deadline,
+    String startDate,
+    String endDate,
+    ProjectTaskResponseDTO project,
+    UserResponseDTO assignedTo
+) { }

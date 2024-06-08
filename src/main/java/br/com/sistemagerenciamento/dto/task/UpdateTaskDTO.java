@@ -1,15 +1,11 @@
 package br.com.sistemagerenciamento.dto.task;
 
+import java.time.LocalDate;
+
 public record UpdateTaskDTO(
         Long taskId,
-        String name,
-        String description,
         String status,
-        String deadline,
-        String startDate,
-        String endDate,
-        Long projectId,
-        Long assignedToId,
-        Long teamId
-) {
-}
+        LocalDate deadline,
+        LocalDate endDate,
+        Long assignedToId
+) { }
