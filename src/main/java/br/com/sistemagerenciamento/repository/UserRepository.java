@@ -11,18 +11,19 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    //Metodo para buscar um usuario por id
+    // Método para buscar um usuário por id
     Optional<User> findById(Long id);
 
-    //Metodo para buscar um usuario por email
+    // Método para buscar um usuário por email
     Optional<User> findByEmail(String email);
 
-    // Método para buscar todos os usuário por nome
+    // Método para buscar todos os usuários por nome
     List<User> findByNameContainingIgnoreCase(String name);
 
-    // Método para buscar todos os usuário por tipo
+    // Método para buscar todos os usuários por tipo
     List<User> findByType(String tipo);
 
     // Método para verificar se um usuário existe
@@ -31,18 +32,18 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Modifying // Anotação para indicar que o método modifica o banco de dados
     @Transactional
     @Query("UPDATE User u SET u.password = :password WHERE u.email = :email")
-    // Método para atualizar a senha de um usuário
-    void updatePasswordByEmail( @Param("email") String email, @Param("password") String password);
+        // Método para atualizar a senha de um usuário
+    void updatePasswordByEmail(@Param("email") String email, @Param("password") String password);
 
     @Modifying
     @Transactional
     @Query("UPDATE User u SET u.type = :type WHERE u.email = :email")
-    // Método para atualizar o tipo de um usuário
-    void updateTypeByEmail( @Param("email") String email, @Param("type") String type);
+        // Método para atualizar o tipo de um usuário
+    void updateTypeByEmail(@Param("email") String email, @Param("type") String type);
 
     @Modifying
     @Transactional
     @Query("DELETE FROM User u WHERE u.email = :email")
-    // Método para excluir um usuário por email
+        // Método para excluir um usuário por email
     void deleteByEmail(String email);
 }
