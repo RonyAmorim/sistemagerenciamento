@@ -24,6 +24,11 @@ public class ProjectService {
     @Autowired
     private TeamService teamService;
 
+    /**
+     * Método que cria um novo projeto
+     * @param projectDTO DTO com os dados do projeto
+     * @return Projeto criado
+     */
     public Project createProject(ProjectRegisterRequestDTO projectDTO) {
         // 1. Busca o usuário responsável e a equipe pelo ID
         User responsibleUser = userService.findById(projectDTO.responsibleId());
@@ -48,15 +53,30 @@ public class ProjectService {
         return createdProject;
     }
 
+    /**
+     * Método que retorna um projeto pelo ID
+     * @param id ID do projeto
+     * @return Projeto
+     */
     public Project getProjectById(Long id) {
         return projectRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Projeto não encontrado com ID: " + id));
     }
 
+    /**
+     * Método que retorna todos os projetos
+     * @return Lista de projetos
+     */
     public List<Project> getAllProjects() {
         return projectRepository.findAll();
     }
 
+    /**
+     * Método que atualiza um projeto
+     * @param id ID do projeto
+     * @param updatedProject Projeto atualizado
+     * @return Projeto atualizado
+     */
     public Project updateProject(Long id, Project updatedProject) {
         Project existingProject = getProjectById(id);
         existingProject.setDescription(updatedProject.getDescription());
@@ -65,28 +85,55 @@ public class ProjectService {
         return existingProject;
     }
 
-
+    /**
+     * Método que deleta um projeto
+     * @param id ID do projeto
+     */
     public void deleteProject(Long id) {
         projectRepository.deleteById(id);
     }
 
+    /**
+     * Método que retorna projetos por nome
+     * @param name Nome do projeto
+     * @return Lista de projetos
+     */
     public List<Project> findProjectsByName(String name) {
         return projectRepository.findByNameContainingIgnoreCase(name);
     }
 
+    /**
+     * Método que retorna projetos por status
+     * @param status Status do projeto
+     * @return Lista de projetos
+     */
     public List<Project> findProjectsByStatus(String status) {
         return projectRepository.findByStatus(status);
     }
 
+    /**
+     * Método que retorna projetos por ID do responsável
+     * @param responsibleId ID do responsável
+     * @return Lista de projetos
+     */
     public List<Project> findProjectsByResponsibleId(Long responsibleId) {
         return projectRepository.findByResponsibleIdUserId(responsibleId);
     }
 
-
+    /**
+     * Método que atualiza o status de um projeto
+     * @param id ID do projeto
+     * @param status Novo status
+     */
     public void updateProjectStatus(Long id, String status) {
         projectRepository.updateStatusById(id, status);
     }
 
+    /**
+     * Método que atualiza a descrição de um projeto
+     * @param id ID do projeto
+     * @param description Nova descrição
+     */
     public void updateProjectDescription(Long id, String description) {
         projectRepository.updateDescriptionById(id, description);
     }

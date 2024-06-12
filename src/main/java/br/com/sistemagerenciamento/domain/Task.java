@@ -2,7 +2,13 @@ package br.com.sistemagerenciamento.domain;
 
 import jakarta.persistence.*;
 import lombok.Data;
+
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+/**
+ * Classe que representa a entidade Task
+ */
 
 @Entity
 @Table(name = "Task")
@@ -37,7 +43,7 @@ public class Task {
     private LocalDate creationDate;
 
     @Column(name = "last_update", nullable = false)
-    private LocalDate startDate;
+    private LocalDateTime lastUpdate;
 
     @Column(name = "end_date", nullable = false)
     private LocalDate endDate;

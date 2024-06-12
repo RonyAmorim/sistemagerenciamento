@@ -6,13 +6,14 @@ import br.com.sistemagerenciamento.dto.user.UserResponseDTO;
 import br.com.sistemagerenciamento.dto.user.UserWithoutPassword;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public record TaskRegisterRequestDTO(
         String name,
         String description,
         String status,
         LocalDate deadline,
-        LocalDate startDate,
+        LocalDateTime lastUpdate,
         Long project,
         Long assignedTo
 ) { }

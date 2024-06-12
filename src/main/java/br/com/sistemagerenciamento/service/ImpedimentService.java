@@ -48,17 +48,31 @@ public class ImpedimentService {
         this.emailService = emailService;
     }
 
+    /**
+     * Método que retorna todos os impedimentos
+     * @return Lista de impedimentos
+     */
     public List<ImpedimentDTO> getAllImpediments() {
         return impedimentRepository.findAll().stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Método que retorna um impedimento pelo id
+     * @param id Id do impedimento
+     * @return Impedimento
+     */
     public ImpedimentDTO getImpedimentById(Long id) {
         Optional<Impediment> impediment = impedimentRepository.findById(id);
         return impediment.map(this::convertToDTO).orElse(null);
     }
 
+    /**
+     * Método que cria um impedimento
+     * @param createImpedimentDTO DTO com os dados do impedimento
+     * @return Impedimento criado
+     */
     public ImpedimentDTO createImpediment(CreateImpedimentDTO createImpedimentDTO) {
         Task task = taskRepository.findById(createImpedimentDTO.taskId()).orElseThrow();
         User reportedBy = userRepository.findById(createImpedimentDTO.reportedById()).orElseThrow();
@@ -76,10 +90,19 @@ public class ImpedimentService {
         return convertToDTO(savedImpediment);
     }
 
+    /**
+     * Método que deleta um impedimento
+     * @param id Id do impedimento
+     */
     public void deleteImpediment(Long id) {
         impedimentRepository.deleteById(id);
     }
 
+    /**
+     * Método que converte um impedimento para DTO
+     * @param impediment Impedimento
+     * @return DTO do impedimento
+     */
     private ImpedimentDTO convertToDTO(Impediment impediment) {
         Task task = impediment.getTask();
         Project project = task.getProject();
@@ -91,7 +114,7 @@ public class ImpedimentService {
                 task.getDescription(),
                 task.getStatus(),
                 task.getDeadline().toString(),
-                task.getStartDate().toString(),
+                task.getLastUpdate().toString(),
                 task.getEndDate().toString(),
                 new ProjectTaskResponseDTO(project.getProjectId(), project.getName()),
                 new UserResponseDTO(assignedTo.getUserId(), assignedTo.getName(), assignedTo.getEmail())
@@ -111,6 +134,10 @@ public class ImpedimentService {
         );
     }
 
+    /**
+     * Método que envia um email para o responsável do projeto quando um novo impedimento é reportado
+     * @param impediment Impedimento
+     */
     private void sendEmailForNewImpediment(Impediment impediment) {
         User userSend = impediment.getReportedBy();
         Task task = impediment.getTask();

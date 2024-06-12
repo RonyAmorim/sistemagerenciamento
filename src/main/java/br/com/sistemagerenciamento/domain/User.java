@@ -3,7 +3,9 @@ package br.com.sistemagerenciamento.domain;
 import jakarta.persistence.*;
 import lombok.Data;
 import java.time.LocalDate;
-
+/**
+ * Classe que representa a entidade User
+ */
 @Entity
 @Table(name = "User")
 @Data

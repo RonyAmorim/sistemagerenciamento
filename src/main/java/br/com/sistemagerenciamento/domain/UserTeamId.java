@@ -5,7 +5,9 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Objects;
-
+/**
+ * Classe que representa a chave composta da entidade UserTeam
+ */
 @Embeddable
 public class UserTeamId implements Serializable {
     private Long userId;

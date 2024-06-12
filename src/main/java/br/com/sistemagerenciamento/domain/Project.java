@@ -4,7 +4,9 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDate;
-
+/**
+ * Classe que representa a entidade Project
+ */
 @Entity
 @Table(name = "Project")
 @Data

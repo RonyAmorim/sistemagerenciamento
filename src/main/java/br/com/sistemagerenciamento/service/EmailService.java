@@ -11,6 +11,9 @@ import org.thymeleaf.spring6.SpringTemplateEngine;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 
+/**
+ * Serviço para envio de emails.
+ */
 @Service
 public class EmailService {
 
@@ -20,6 +23,13 @@ public class EmailService {
     @Autowired
     private SpringTemplateEngine templateEngine;
 
+    /**
+     * Método para enviar email.
+     * @param to Destinatário
+     * @param subject Assunto
+     * @param templateName Nome do template
+     * @param context Contexto
+     */
     public void sendEmail(String to, String subject, String templateName, Context context) {
         MimeMessage mimeMessage = mailSender.createMimeMessage();
         try {

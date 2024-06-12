@@ -23,7 +23,6 @@ public interface UserTeamRepository extends JpaRepository<UserTeam, UserTeamId>{
     //deletar um usuário de uma equipe
     void deleteById(UserTeamId userTeamId);
 
-
     List<UserTeam> findByIdTeamId(Long teamId);
 
     List<UserTeam> findByIdUserId(Long userId);

@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -43,6 +44,7 @@ public class TaskService {
      */
     public TaskResponseDTO createTask(TaskRegisterRequestDTO taskDTO) {
         Task task = convertToEntity(taskDTO);
+        task.setLastUpdate(LocalDateTime.now());
         Task savedTask = taskRepository.save(task);
 
         // Enviar e-mail de nova tarefa
@@ -205,7 +207,7 @@ public class TaskService {
         task.setDescription(taskDTO.description());
         task.setStatus(taskDTO.status());
         task.setDeadline(taskDTO.deadline());
-        task.setStartDate(taskDTO.startDate());
+        task.setLastUpdate(taskDTO.lastUpdate());
 
         Project project = projectRepository.findById(taskDTO.project())
                 .orElseThrow(() -> new RuntimeException("Projeto não encontrado"));
@@ -253,7 +255,7 @@ public class TaskService {
                 task.getDescription(),
                 task.getStatus(),
                 task.getDeadline().toString(),
-                task.getStartDate().toString(),
+                task.getLastUpdate().toString(),
                 task.getEndDate() != null ? task.getEndDate().toString() : null,
                 new ProjectTaskResponseDTO(task.getProject().getProjectId(), task.getProject().getName()),
                 new UserResponseDTO(task.getAssignedTo().getUserId(), task.getAssignedTo().getName(), task.getAssignedTo().getEmail())

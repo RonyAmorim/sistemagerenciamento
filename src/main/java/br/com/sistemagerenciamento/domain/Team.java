@@ -3,6 +3,9 @@ package br.com.sistemagerenciamento.domain;
 import jakarta.persistence.*;
 import lombok.Data;
 
+/**
+ * Classe que representa a entidade Team
+ */
 @Entity
 @Table(name = "Team")
 @Data

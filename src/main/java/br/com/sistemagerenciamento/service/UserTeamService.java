@@ -26,8 +26,12 @@ public class UserTeamService {
     @Autowired
     private UserTeamRepository userTeamRepository;
 
-
-    // Método para adicionar um usuário a uma equipe
+    /**
+     * Método para adicionar um usuário a uma equipe
+     * @param userId ID do usuário
+     * @param teamId ID da equipe
+     * @return Relação entre usuário e equipe
+     */
     @Transactional
     public UserTeam addUserToTeam(Long userId, Long teamId) {
         User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
@@ -43,13 +47,22 @@ public class UserTeamService {
         return userTeam;
     }
 
-    // Método para remover um usuário de uma equipe
+    /**
+     * Método para remover um usuário de uma equipe
+     * @param userId ID do usuário
+     * @param teamId ID da equipe
+     */
     public void removeUserFromTeam(Long userId, Long teamId) {
         UserTeamId userTeamId = new UserTeamId(userId, teamId);
         userTeamRepository.deleteById(userTeamId);
     }
 
-    // Método para verificar se um usuário pertence a uma equipe
+    /**
+     * Método para verificar se um usuário está em uma equipe
+     * @param userId ID do usuário
+     * @param teamId ID da equipe
+     * @return true se o usuário estiver na equipe, false caso contrário
+     */
     public boolean isUserInTeam(Long userId, Long teamId) {
         UserTeamId userTeamId = new UserTeamId(userId, teamId);
         return userTeamRepository.existsById(userTeamId);
@@ -63,6 +76,11 @@ public class UserTeamService {
                 .collect(Collectors.toList());
     }*/
 
+    /**
+     * Método para listar todas as equipes de um usuário
+     * @param userId ID do usuário
+     * @return Lista de equipes
+     */
     public List<Team> listTeamsByUser(Long userId) {
         List<UserTeam> userTeams = userTeamRepository.findByIdUserId(userId);
         return userTeams.stream()
@@ -70,6 +88,11 @@ public class UserTeamService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Método para listar todos os usuários de uma equipe
+     * @param teamId ID da equipe
+     * @return Lista de usuários
+     */
     public List<User> listUsersByTeam(Long teamId) {
         List<UserTeam> userTeams = userTeamRepository.findByIdTeamId(teamId);
         return userTeams.stream()

@@ -4,7 +4,9 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.io.Serializable;
-
+/**
+ * Classe que representa a entidade UserTeam
+ */
 @Entity
 @Table(name = "UserTeam")
 @Data
